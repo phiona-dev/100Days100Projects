@@ -1,0 +1,32 @@
+#header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#binary-input {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+button {
+    border-radius: 12%;
+    padding: 8px 20px;
+    margin-bottom: 20px;
+    border: none;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+#decimal-value {
+    color: brown;
+}
