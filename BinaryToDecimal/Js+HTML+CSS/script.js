@@ -1,5 +1,5 @@
 const binaryInput = document.getElementById("binary-input")
-const decimal = document.getElementById("decimal-value");
+const finalDecimalOutput = document.getElementById("decimal-value");
 const submitButton = document.getElementById("submit-button")
 
 
@@ -7,7 +7,7 @@ submitButton.addEventListener("click", () => {
     const currentValue = binaryInput.value
     console.log(currentValue)
 
-    let decimalOutput = 0
+    let decimalResult = 0
 
     if (currentValue.length > 8) {
         alert("Only 8 digit values are allowed")
@@ -21,12 +21,12 @@ submitButton.addEventListener("click", () => {
             return
         } else {
             for (let i=0; i<currentValue.length; i++) {
-                decimalOutput += Number(currentValue[x]) * 2 ** i
+                decimalResult += Number(currentValue[x]) * 2 ** i
                 x--;
             }
         }
     }
-    console.log(decimalOutput)
+    console.log(decimalResult)
 
-    decimal.textContent = decimalOutput;
+    finalDecimalOutput.textContent = decimalResult;
 })
