@@ -44,7 +44,7 @@ function App() {
       <h1>Binary to Decimal Conversion</h1>
       <div>
         <label>Binary </label>
-        <input type='number' value={binary} onChange={handleChange}/>
+        <input type='text' value={binary} onChange={handleChange}/>
       </div>
       <button onClick={handleBinaryConversion}  style={{ marginTop: "20px", cursor: "pointer"}}>Convert</button>
 

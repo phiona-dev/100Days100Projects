@@ -1,70 +1,138 @@
-# Getting Started with Create React App
+# Binary to Decimal Converter
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The purpose of this project was to practice building an interactive application with React while strengthening my understanding of binary number conversion.
 
-## Available Scripts
+The application allows users to enter a binary number containing up to 8 digits and calculates its decimal equivalent using the positional value of each binary digit.
 
-In the project directory, you can run:
+For example:
 
-### `npm start`
+```text
+1011₂ = 11₁₀
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+* Accepts binary numbers of up to 8 digits
+* Validates that the input contains only `0` and `1`
+* Notifies the user when invalid input is entered
+* Converts binary numbers into decimal manually
+* Displays the conversion result dynamically
+* Supports binary numbers with different numbers of digits
 
-### `npm test`
+## Technologies Used
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* React
+* JavaScript
+* CSS
+* HTML
 
-### `npm run build`
+## How It Works
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### State Management
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The application uses React's `useState` hook to manage the binary input and conversion result.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```js
+const [binary, setBinary] = useState("")
+const [result, setResult] = useState(null)
+```
 
-### `npm run eject`
+The `binary` state stores the user's input, while `result` stores the calculated decimal value.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Input Validation
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The `handleChange` function is triggered whenever the user changes the input.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Each character is checked to ensure that it is either `0` or `1`.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```js
+for (let x = 0; x < value.length; x++) {
+  if (value[x] !== "0" && value[x] !== "1") {
+    alert("Only 0's and 1's allowed")
+    return
+  }
+}
+```
 
-## Learn More
+The application also checks that the binary number does not exceed 8 digits.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```js
+if (value.length > 8) {
+  alert("Only 8 digits or less are allowed")
+  return
+}
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Binary Conversion
 
-### Code Splitting
+When the user clicks the Convert button, the application processes the binary number from right to left.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```js
+let decimal = 0;
+let power = 0;
 
-### Analyzing the Bundle Size
+for (let x = binary.length - 1; x >= 0; x--) {
+  decimal = decimal + (Number(binary[x]) * 2 ** power)
+  power++
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+The rightmost digit represents `2⁰`, with each position to the left representing the next power of 2.
 
-### Making a Progressive Web App
+For example:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```text
+1011
 
-### Advanced Configuration
+= (1 × 2³) + (0 × 2²) + (1 × 2¹) + (1 × 2⁰)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+= 8 + 0 + 2 + 1
 
-### Deployment
+= 11
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+The calculated value is then stored in the `result` state:
 
-### `npm run build` fails to minify
+```js
+setResult(decimal)
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+React then updates the displayed result.
+
+## React Concepts Practiced
+
+This project provided practice with:
+
+* Functional components
+* `useState`
+* Controlled inputs
+* Event handling
+* `onChange`
+* `onClick`
+* State management
+* Conditional statements
+* `for` loops
+* String indexing
+* Type conversion
+* Dynamic rendering
+
+## What I Learned
+
+This project helped me understand how to combine a mathematical problem with React's component and state-based approach.
+
+The binary conversion is based on positional notation, where each binary digit represents a power of 2 depending on its position.
+
+Implementing the conversion manually rather than using a built-in conversion method helped me better understand how binary numbers are converted into decimal values.
+
+Building the project with React also gave me practice managing user input, validating data, handling events, and updating the interface based on state changes.
+
+
+## Credits
+
+This project was inspired by the **Bin2Dec** project from:
+
+**Florin Pop — App Ideas Collection**
+
+Original repository: https://github.com/florinpop17/app-ideas
+
+The original repository provided the project idea and requirements. This React implementation was created independently as a learning project.
