@@ -9,4 +9,17 @@
     margin-top: 60px;
     width: 300px;
     height: 100px;
+    border: none;
+    background: linear-gradient(12deg, #631010, #8f5909);
+}
+
+#copy-btn {
+    margin-top: 20px;
+    border: none;
+    cursor: pointer;
+    width: 100px;
+    height: 40px;
+    border-radius: 12px;
+    background-color: #d5d3d0;
+
 }
