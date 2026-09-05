@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Calculator</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <h2>Calculator</h2>
+        <div id="results-container">
+            <p id="input"></p>
+            <p id="result"></p>
+        </div>
+        <div>
+            <div class="row">
+                <button id="clearBtn">C</button>
+                <button id="clearAllBtn">AC</button>
+                <button>%</button>
+                <button id="divide" onclick="handleOperatorClick('/')">/</button>
+            </div>
+            <div class="row">
+                <input type="button" class="inputNumber" value="7" onclick="handleNumberClick('7')" onkeydown="myFunction(event)">
+                <input type="button" class="inputNumber" value="8" onclick="handleNumberClick('8')">
+                <input type="button" class="inputNumber" value="9" onclick="handleNumberClick('9')">
+                <button id="multiply" onclick="handleOperatorClick('*')">*</button>
+            </div>
+            <div class="row">
+                <input type="button" id="num4" value="4" onclick="handleNumberClick('4')">
+                <input type="button" id="num5" value="5" onclick="handleNumberClick('5')">
+                <input type="button" id="num6" value="6" onclick="handleNumberClick('6')">
+                <button id="subtract" onclick="handleOperatorClick('-')">-</button>
+            </div>
+            <div class="row">
+                <input type="button" id="num1" value="1" onclick="handleNumberClick('1')">
+                <input type="button" id="num2" value="2" onclick="handleNumberClick('2')">
+                <input type="button" id="num3" value="3" onclick="handleNumberClick('3')">
+                <button id="add" onclick="handleOperatorClick('+')">+</button>
+            </div>
+            <div class="row">
+                <input type="button" id="num0" value="0" onclick="handleNumberClick('0')">
+                <input type="button" id="decimal" value="." onclick="handleNumberClick('.')">
+                <button id="equal-sign" onclick="calculateResult()">=</button>
+            </div>
+            
+        </div>
+        <script src="script.js"></script>
+    </body>
+</html>

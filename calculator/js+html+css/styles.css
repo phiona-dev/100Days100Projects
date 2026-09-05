@@ -1,0 +1,30 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#results-container {
+    margin-top: 50px;
+    height: 70px;
+    width: 290px;
+    padding: 20px;
+    border: 1px solid grey
+}
+
+#result {
+    text-align: end;
+}
+
+input,button {
+    height: 60px;
+    width: 80px;
+    border-radius: 5px;
+    border: none;
+    font-size: 18px;
+}
+
+.row {
+    margin: 10px 10px;
+}
