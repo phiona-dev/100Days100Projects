@@ -1,70 +1,146 @@
-# Getting Started with Create React App
+# Border-Radius Previewer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React-based tool that allows users to experiment with the four corner values of a box's border radius and preview the resulting shape.
 
-## Available Scripts
+This project was inspired by the **Border-radius Previewer** challenge from Florin Pop's App Ideas Collection.
 
-In the project directory, you can run:
+## Overview
 
-### `npm start`
+The Border-Radius Previewer helps users understand how CSS `border-radius` works by allowing them to enter custom values for each corner of a box.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The application displays the resulting shape and generates the corresponding CSS property, which users can copy to their clipboard.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Features
 
-### `npm test`
+* Enter border-radius values for four corners:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  * Top-left
+  * Top-right
+  * Bottom-right
+  * Bottom-left
+* Preview the changes on a styled button.
+* Display the generated CSS `border-radius` property.
+* Copy the generated CSS to the clipboard.
+* Use `0px` when a field is left empty.
+* Manage form data using React state.
 
-### `npm run build`
+## Technologies Used
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* React
+* JavaScript
+* JSX
+* CSS
+* Clipboard API
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## How It Works
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 1. Managing Form Data
 
-### `npm run eject`
+The application uses React's `useState` Hook to store the four border-radius values.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```js
+const [formData, setFormData] = useState({
+  topLeftValue: "",
+  topRightValue: "",
+  bottomRightValue: "",
+  bottomLeftValue: ""
+});
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 2. Handling Input Changes
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+The `handleChange` function updates the specific field that the user is editing.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```js
+const handleChange = (e) => {
+  const { name, value } = e.target;
 
-## Learn More
+  setFormData((prevData) => ({
+    ...prevData,
+    [name]: value
+  }));
+};
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The spread operator preserves the other values, while the computed property name updates the selected field.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 3. Generating the CSS
 
-### Code Splitting
+The application creates a CSS `border-radius` string using the four values:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```js
+const updatedStyles = `border-radius: ${
+  formData.topLeftValue || 0
+}px ${
+  formData.topRightValue || 0
+}px ${
+  formData.bottomRightValue || 0
+}px ${
+  formData.bottomLeftValue || 0
+}px;`;
+```
 
-### Analyzing the Bundle Size
+The values are arranged in the following order:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```text
+Top-left → Top-right → Bottom-right → Bottom-left
+```
 
-### Making a Progressive Web App
+### 4. Previewing the Shape
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+The generated values are applied directly to the preview button through React's inline styling:
 
-### Advanced Configuration
+```jsx
+style={{
+  borderRadius: `${formData.topLeftValue || 0}px ${
+    formData.topRightValue || 0
+}px ${
+    formData.bottomRightValue || 0
+}px ${
+    formData.bottomLeftValue || 0
+}px`
+}}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Whenever the form data changes, React updates the preview automatically.
 
-### Deployment
+### 5. Copying the CSS
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+The `handleCopy` function uses the browser's Clipboard API to copy the generated CSS:
 
-### `npm run build` fails to minify
+```js
+const handleCopy = async () => {
+  try {
+    await navigator.clipboard.writeText(updatedStyles);
+    alert("Copied!");
+  } catch (err) {
+    console.error("Failed to copy text: ", err);
+  }
+};
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Concepts Practiced
+
+* React functional components
+* React `useState`
+* Controlled inputs
+* Handling form events
+* Updating objects in state
+* JSX expressions
+* Template literals
+* Conditional fallback values using `||`
+* Inline styling in React
+* CSS `border-radius`
+* Clipboard API
+* Asynchronous JavaScript using `async` and `await`
+
+## What I Learned
+
+This project helped me understand how React manages form inputs and updates the user interface when state changes.
+
+I also practiced using one state object to manage multiple related values, applying dynamic styles, and generating CSS from user input.
+
+
+## Credits
+
+Inspired by the Border-radius Previewer challenge from Florin Pop's App Ideas Collection.
