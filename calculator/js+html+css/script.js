@@ -9,22 +9,27 @@ let finalAnswer = 0
 let currentAnswer = 0
 
 const handleNumberClick = (data) => {
+    if (currentNumber.length > 8) {
+        return 
+    };
+
     input.textContent += data
     currentNumber += data
     console.log(currentNumber)
+
 }
 
 const handleOperatorClick = (operator) => {
-    if (currentNumber === "") return
     currentOperator = operator
     input.textContent += operator
     currentAnswer = Number(currentNumber)
+
     currentNumber = ""
     console.log(currentOperator)
 }
 
 const calculateResult = () => {
-    if (currentNumber === "" || currentOperator === "") return
+    
     const num = Number(currentNumber);
 
     if (currentOperator === "+") {
@@ -33,31 +38,33 @@ const calculateResult = () => {
         finalAnswer = currentAnswer - num
     } else if (currentOperator === "*") {
         finalAnswer = currentAnswer * num
-    } else {
+    } else if (currentOperator === "/"){
         finalAnswer = currentAnswer / num
+    } else {
+        finalAnswer = currentNumber
     }
 
     result.textContent = finalAnswer
 }
 
 clearBtn.addEventListener("click", () => {
-    input.textContent = input.textContent.slice(0, -1)
-    currentNumber = input.textContent
-    console.log(currentNumber)
+    if (currentNumber !== "") {
+        currentNumber = currentNumber.slice(0, -1)
+        input.textContent = input.textContent.slice(0, -1)
+    } else if (currentOperator !== "") {
+        currentOperator = ""
+        input.textContent = input.textContent.slice(0, -1)
+    }
+
+    result.textContent = ""
+
 })
 
 clearAllBtn.addEventListener("click", () => {
     input.textContent = ""
     result.textContent = ""
+    currentNumber = ""
+    currentOperator = ""
+    currentAnswer = 0
+    finalAnswer = 0
 })
-
-const myFunction = (event) => {
-    if (event.key == "0" || event.key == "1" || event.key == "2" ||
-        event.key == "3" || event.key == "4" || event.key == "5" ||
-        event.key == "6" || event.key == "7" || event.key == "8" ||
-        event.key == "9" || event.key == "+" || event.key == "-" ||
-        event.key == "*" || event.key == "/"
-    ) {
-        input.value += event.key
-    }
-}
